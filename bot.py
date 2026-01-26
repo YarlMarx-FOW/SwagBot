@@ -217,7 +217,7 @@ async def swag_logic(message: types.Message):
             return
 
         ######################## Рандомная свагинация ###################################
-        if random.random() < 0.0005:
+        if random.random() < 0.005:
             result = swagify(message.text)
 
             if result:
