@@ -33,7 +33,9 @@ def swagify(text):
     
     if word.startswith("свингер"):
         return f"Я отказываюсь это комментировать."
-
+    
+    if len(word) <= 2:
+        return None
     if len(word) <= 4:
         return f"сваго{word}"
 
@@ -48,7 +50,7 @@ def swagify(text):
         
     return f"сваго{word}"
 
-BAN_WORDS = ["гитлер", "1488", "сво", "грехи прошлого", "роза жизни", "порно", "свастика"] # Думаю очевидно что это
+BAN_WORDS = ["гитлер", "1488", "сво", "грехи прошлого", "роза жизни", "порно", "свастика", "зов"] # Думаю очевидно что это
 #################################### На них бот реактит всегда ###########################
 PASHALKI = {
     "свагобот": "Свага на месте.",
@@ -121,12 +123,14 @@ async def swag_logic(message: types.Message):
         if trigger in msg_low:
             await message.reply_sticker(sticker=s_id)
             return
+        
     for trigger, response in PASHALKI.items():
         if trigger in msg_low:
             await message.reply(response)
             return
+        
     for trigger, g_id in GIF_PASHALKИ.items():
-        if trigger in msg_low:
+        if re.search(rf'\b{re.escape(trigger)}\b', msg_low):
             await message.reply_animation(animation=g_id)
             return   
         
