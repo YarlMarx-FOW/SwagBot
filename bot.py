@@ -15,7 +15,7 @@ dp = Dispatcher()
 
 # Пропишу здесь, это защита от спама.
 user_cooldowns = {}
-COOLDOWN_SECONDS = 3 
+COOLDOWN_SECONDS = 30
 
 def swagify(text):
 
@@ -118,9 +118,6 @@ for t, c in STICKER_PASHALKИ.items(): PHRASE_TRIGGERS.append((t, c, "sticker"))
 for t, c in GIF_PASHALKИ.items(): PHRASE_TRIGGERS.append((t, c, "gif"))
 
 PHRASE_TRIGGERS.sort(key=lambda x: len(x[0]), reverse=True)
-
-
-
 #################################### ДЛЯ ПОЛУЧЕНИЯ АЙДИ ГИФОК/СТИКЕРОВ #####################################
 # Хендлер для стикеров 
 # @dp.message(F.sticker)
@@ -212,12 +209,12 @@ async def swag_logic(message: types.Message):
                     await message.reply(content)
                 return
             
-        if message.text.isupper() and len(message.text) > 5:
+        if message.text.isupper() and len(message.text) > 25:
             await message.reply("ПОТИШЕ, БРАТАНЧИК")
             return
 
         ######################## Рандомная свагинация ###################################
-        if random.random() < 0.005:
+        if random.random() < 0.01:
             result = swagify(message.text)
 
             if result:
