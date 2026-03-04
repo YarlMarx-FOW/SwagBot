@@ -84,7 +84,8 @@ TOXIC_REJECTS = [                                           # Ответы дл�
     "Пошёл нахуй.",
     "Соси, глотай.",
     "Ошибка доступа: Обнаружено генетическое уродство отправителя.",
-    "Для тебя, чмоня, шлюз закрыт навсегда."
+    "Для тебя, чмоня, шлюз закрыт навсегда.",
+    "Я не собираюсь отвечать на твои нищие сообщения более.",
 ]
 ##########################################################################################################
 
@@ -113,7 +114,7 @@ TOXIC_REJECTS = [                                           # Ответы дл�
 # @dp.message(F.audio)
 # async def get_audio_id(message: types.Message):
 #     await message.reply(f"ID этого аудио:\n`{message.audio.file_id}`", parse_mode="MarkdownV2")
-# #
+# # Хендлер для голосовух
 # @dp.message(F.voice)
 # async def get_voice_id(message: types.Message):
 #     await message.reply(f"ID Этой голосовухи:\n`{message.voice.file_id}`", parse_mode="MarkdownV2")
@@ -239,13 +240,13 @@ async def delete_bot_message(message: types.Message):
 
 ########################################### РАБОТА С ЧАТАМИ #########################################################################
 async def relay_to_master(msg_obj: types.Message, is_private=False):
-    # source = "ЛС" if is_private else "чата"
+
     try:
         
         # await bot.send_message(
         #     MASTER_ID, 
-        #     f"Жека Анджело? {msg_obj.from_user.first_name} из {source} передаёт вам:"
-        # ) Подрубается для вычисления спамера в личку
+        #     f"Жека Анджело? {msg_obj.from_user.first_name} [{last_sender_id}] передаёт вам:"
+        #  ) # Подрубается для вычисления спамера в личку
         
         await msg_obj.copy_to(chat_id=MASTER_ID)
         
@@ -488,25 +489,54 @@ ALL_PASHALKO = {
 
 #————————————————————————————————————————————————————— ОТВЕТЫ ВИДОСАМИ ———————————————————————————————————————————————————————————————————————————————————————————————
     #################### ФОРМАТ СПИСОК: СТРОКА
-    ("видос свагалора", "видео свагалора"): ("BAACAgEAAxkBAAIDEGmBHmP0AAEPYBn9DXMEV-9fJ7ZVqgAChQUAAkF8uEfVwxwlt6i60jgE", "video", "IS_REPLY"),
-
-#————————————————————————————————————————————————————— ОТВЕТЫ ПИКЧАМИ ————————————————————————————————————————————————————————————————————————————————————————————————
-    #################### ФОРМАТ СПИСОК: СТРОКА
-    ("сваголор", "свагалор", "свагобщага"): ("AgACAgIAAxkBAAIB9ml6DgLiVHJkzfIKx1sTvZ-f7ClZAAIDD2sbJ67QSwkMSlDuIRYGAQADAgADeQADOAQ", "pic", "IS_REPLY", "STRICT"),
-    ("кумарлор", "кумар 73"): ("AgACAgIAAxkBAAIB9Gl6DdcVJUPlgVcFAvXszQ2XboHCAAICD2sbJ67QSzpM7ICIPif6AQADAgADeQADOAQ", "pic", "IS_REPLY"),
-    ("приват", "запривачен"): ("AgACAgIAAxkBAAIDDmmBG74AAZkQDw78WfrBetFc66SkRAACvwxrG5GnCEgFRyeM57cgMgEAAwIAA3gAAzgE", "pic"),
+    ("видос свагалора", "видео свагалора"): ("BAACAgEAAxkBAAIFQ2moSr0UVViHULB1JLbGDKPXRF0TAAKFBQACQXy4R__6DUnJDHNDOgQ", "video", "IS_REPLY"),
+    ("арбузный лор", "арбуз"): ("BAACAgIAAxkBAAIFQmmoSr0120k4fd_xQIebH_ZLeA59AAIPmwACJ67QS8GcBojh8_KBOgQ", "video", "IS_REPLY", "CHANCE:0.2"),
 
     #################### ФОРМАТ СТРОКА: СТРОКА
-    "маким": ("AgACAgIAAxkBAAIBgGl4sizYnAK4JNkUrCz6wGXpKwmGAAKxDGsbX5HISyZgtlQByDMsAQADAgADeAADOAQ", "pic"),
-    "растяпа": ("AgACAgIAAxkBAAIC8Gl_eCYR65YAAb_eAhmrpQG866xgCAACJA5rG83_AUgz5N9cYDY8QgEAAwIAA3kAAzgE", "pic"),
+    "рычаг": ("BAACAgIAAx0Cct4JbwABDOt6aafrXRbOW2ZW2gtLTRSBHbz6GRAAAvykAAL1AThJ3jnXnr9w2Ms6BA", "video", "IS_REPLY"),
+#————————————————————————————————————————————————————— ОТВЕТЫ ПИКЧАМИ ————————————————————————————————————————————————————————————————————————————————————————————————
+    #################### ФОРМАТ СПИСОК: СПИСОК
+    ("мамикс", "эксперимент"): (["AgACAgIAAx0Cct4JbwABDO14aag7RIPN4B2rbLN9SOlsMozraJYAAuoWaxv1AUBJpfbxNAPgxlABAAMCAANtAAM6BA", "AgACAgIAAx0Cct4JbwABDO2Uaag9pwWexr5mczF-9Rv0vA8JXGIAAg0Xaxv1AUBJvHr-VXih5WsBAAMCAANtAAM6BA",
+                                 "AgACAgIAAx0Cct4JbwABDO2Naag9R0FT18bdkOZxy5nkK7KQCXcAAgYXaxv1AUBJZL5MFiwJk50BAAMCAANtAAM6BA", "AgACAgIAAx0Cct4JbwABDO2Uaag9pwWexr5mczF-9Rv0vA8JXGIAAg0Xaxv1AUBJvHr-VXih5WsBAAMCAANtAAM6BA",
+                                 "AgACAgIAAx0Cct4JbwABDO3_aahCDbnp8rht6RBpA-TzJ5FUfwADVRdrG_UBQEmLTSWbmNp7ggEAAwIAA3gAAzoE", "AgACAgIAAx0Cct4JbwABDO38aahBQKWUyNzlj6AXSRaxFrFoavwAAkQXaxv1AUBJ4k8yzQ0wPx8BAAMCAAN4AAM6BA",
+                                 "AgACAgIAAx0Cct4JbwABDO3taahAaPZBilDSVlB3UIVEtaelpn0AAjoXaxv1AUBJHFYMcQNbWasBAAMCAAN4AAM6BA", "AgACAgIAAx0Cct4JbwABDO4taahEpUpkddc1KAxWC7d5Tsbs7-8AAngXaxv1AUBJvAi3i5R86YgBAAMCAANtAAM6BA",
+                                 "AgACAgIAAx0Cct4JbwABDO2Waag9zVDCOEEOk8EBY7_hR_F84PIAAhAXaxv1AUBJ7jw9eB77tXQBAAMCAANtAAM6BA", "AgACAgIAAx0Cct4JbwABDO2Qaag9atVB3r9-xysAARNjd_T1Bz9tAAIMF2sb9QFASZ0oL1HEesg5AQADAgADeAADOgQ",
+                                 "AgACAgIAAx0Cct4JbwABDO36aahA6yHHtZx2Zj4G0xrlG28egi8AAkIXaxv1AUBJbMKzSuDUBi8BAAMCAAN4AAM6BA", "AgACAgIAAx0Cct4JbwABDO2Waag9zVDCOEEOk8EBY7_hR_F84PIAAhAXaxv1AUBJ7jw9eB77tXQBAAMCAANtAAM6BA",
+                                 "AgACAgIAAx0Cct4JbwABDO46aahFemqDWZCY3kmRINYo5_cd88gAAoAXaxv1AUBJYWtq_f6HM-sBAAMCAAN4AAM6BA", "AgACAgIAAx0Cct4JbwABDO4haahERZs0x5fF7ELQNdyGJI9YZ14AAnQXaxv1AUBJNNrmqtDf2xQBAAMCAANtAAM6BA",
+                                 "AgACAgIAAx0Cct4JbwABDO3laahAHZyU-u_Ukg2oWMR8WnzfMmoAAjEXaxv1AUBJIdW1l1MCVoABAAMCAAN4AAM6BA", "AgACAgIAAx0Cct4JbwABDO4EaahCpiXkh7gx63rLW37uzgLk1nMAAloXaxv1AUBJUxaGm_ae8ScBAAMCAAN4AAM6BA",
+                                 "AgACAgIAAx0Cct4JbwABDO4NaahDUtQX3uXlkmo1zFby3WANNs0AAmkXaxv1AUBJHjqAKjvs3TcBAAMCAAN4AAM6BA", "AgACAgIAAx0Cct4JbwABDO28aag-ytJndLes3IbvmkDqm7FoYoEAAhoXaxv1AUBJfr-189xLfYABAAMCAANtAAM6BA",
+                                 "AgACAgIAAx0Cct4JbwABDO4maahEbUMJewHZqnvPOicf0eluDKIAAncXaxv1AUBJJM_O8Py7njcBAAMCAANtAAM6BA", "AgACAgIAAx0Cct4JbwABDO2Vaag9y6cNIiiBhCz9a8-rCl4pe-UAAg8Xaxv1AUBJ744K_LtptrgBAAMCAANtAAM6BA",
+                                 "AgACAgIAAx0Cct4JbwABDO3Faag_F83DZPDj6KFI1G8XNrzsqHwAAiMXaxv1AUBJG2qY2I1yDOwBAAMCAANtAAM6BA", "AgACAgIAAx0Cct4JbwABDO3Caag_AdaVhZqbbWHgMbzxiMeSQ-IAAh8Xaxv1AUBJx0JJtXR4Ud4BAAMCAANtAAM6BA",
+                                 "AgACAgIAAx0Cct4JbwABDO3baag_n1nXnK04L2WyubVovsUX5ZcAAigXaxv1AUBJLaHCSHeZWu8BAAMCAAN4AAM6BA", "AgACAgIAAx0Cct4JbwABDO2Yaag9-2IGRaSPCIFHW8hlR9GPkScAAhIXaxv1AUBJBgIsyVRSGjoBAAMCAAN4AAM6BA",
+                                 "AgACAgIAAx0Cct4JbwABDO3Kaag_Qf7l4o_-mE5AQhSgPtFkT3UAAiUXaxv1AUBJqQohc56EM2UBAAMCAAN5AAM6BA", "AgACAgIAAx0Cct4JbwABDO3Baag-9Hbkf2HPfX7tMMDtcyieaLkAAh4Xaxv1AUBJD-UNrVSKej8BAAMCAANtAAM6BA"
+                                 ], 
+                                "pic", "CHANCE:0.7", "TTL:60"),
+    ("артур пирожков", "александр рева", "гиги"): ("AgACAgIAAx0Cct4JbwABDOxDaagn7DbMd1A-XrRRsXUVicbMx_0AAvwVaxv1AUBJI95rHkkeqOABAAMCAAN5AAM6BA", "pic", "IS_REPLY"),
+    #################### ФОРМАТ СПИСОК: СТРОКА
+    ("сваголор", "свагалор"): ("AgACAgIAAxkBAAIFOmmoSkFA1o_XlRm80oUhgkn7_NrLAAIDD2sbJ67QS-L3nj_WaVJ0AQADAgADeQADOgQ", "pic", "IS_REPLY", "STRICT"),
+    ("кумарлор", "кумар 73"): ("AgACAgIAAxkBAAIFOWmoSkHf5EHSPj2ZZmgMjSX3yY9TAAICD2sbJ67QS-FPhg1MILfCAQADAgADeQADOgQ", "pic", "IS_REPLY"),
+    ("приват", "запривачен"): ("AgACAgIAAxkBAAIFO2moSkGU4cVQyqODQKaWT-Tfh8isAAK_DGsbkacISLZIOf9Ft8LwAQADAgADeAADOgQ", "pic"),
+    ("пакт", "святая троица", "договорняч"): ("AgACAgIAAxkBAAIFSGmoS7VnViJHELpV3gR0cMXhLHC7AAJXGGsbeWRASQ80jxNf9hogAQADAgADeAADOgQ", "pic", "CHANCE:0.2"),
+    ("закон", "цыган"): ("AgACAgIAAyEFAATkLtlfAAJsuWmoK_Y1gTzHlQ5TB78PrhXjmTS9AAIxGGsbAAGBQEnUzMX92AABIxYBAAMCAANtAAM6BA","pic", "TTL:5"),
+   
+   #################### ФОРМАТ СТРОКА: СТРОКА
+    "свагобщага": ("AgACAgIAAxkBAAIFRmmoS5gP3v9FdrNbWbMzKWuJZzeEAAJVGGsbeWRASR0XncSOGXHiAQADAgADeQADOgQ", "pic", "CHANCE:0.7"),
+    "маким": ("AgACAgIAAxkBAAIFOGmoSkG9iHzif-LcBkGEvYBKZq6gAAKxDGsbX5HISz6nimZJVvycAQADAgADeAADOgQ", "pic"),
+    "растяпа": ("AgACAgIAAxkBAAIFQGmoSnEcPO9V0LTg8IEFKQbwr9TSAAIkDmsbzf8BSHz9iFxyu_oqAQADAgADeQADOgQ", "pic"),
+    "аргументация": ("AgACAgIAAx0Cct4JbwABDO0eaagwxIPCoQ-clBEPpHapEA-D3jgAAmYWaxv1AUBJZV0PxkW7p90BAAMCAAN4AAM6BA", "pic"),
+    "чилл": ("AgACAgIAAx0Cct4JbwABDOd8aadFMBOIGNI7U-LInFzrlWV0CIEAArASaxugEZhIQeXoXTaKonABAAMCAAN4AAM6BA", "pic"),
+    "король сваги": ("AgACAgIAAx0Cct4JbwABDOvzaaf3r0SL-QXO_2YdTZfXx8f4SYsAAiYTaxv1AUBJvaIDV6yrw4sBAAMCAAN4AAM6BA", "pic"),
 #————————————————————————————————————————————————————— ОТВЕТЫ ЗВУКАМИ ————————————————————————————————————————————————————————————————————————————————————————————————
     #################### ФОРМАТ СПИСОК: СТРОКА
-    ("восстали машины", "восстание машин", "киборг убийца", "киборг-убийца"): ("CQACAgIAAxkBAAIDaWmB7_HSlgNbCnizV9llaFtZCwpyAAJRkgACquoQSP6pzl2o4BmVOAQ", "audio"),
+    ("восстали машины", "восстание машин", "киборг убийца", "киборг-убийца"): ("CQACAgIAAxkBAAIFMGmoSYpmHp53gjn8oKXAg3Q-NrMoAALIhwACJ67YS8NSI3V1y7NyOgQ", "audio"),
 
 #————————————————————————————————————————————————————— ОТВЕТЫ ГОЛОСОВЫМИ —————————————————————————————————————————————————————————————————————————————————————————————    
+    #################### ФОРМАТ СПИСОК: СПИСОК
+    ("почему", "зачем", "для чего", "нахуя", "схуяли"): (["AwACAgQAAxkBAAIFLGmoSV6j7nc3Fck9jKsv7PJ7C6WNAALfBgAC5ZB1UTE9LfiJGEn5OgQ", "AwACAgIAAx0Cct4JbwABDOabaac_8LU-Y8gUMunYTjopHlb5RlsAAvKfAALsezhJzJPFesXtiRE6BA"], "voice", "NEED_REPLY", "IS_REPLY"),
+    
     #################### ФОРМАТ СПИСОК: СТРОКА
-    ("почему", "зачем", "для чего", "нахуя", "схуяли"): ("AwACAgQAAxkBAAIDbWmB8QUXlgk_FM7rvCJS8wig0-F5AALfBgAC5ZB1UaNaPidsoHWhOAQ", "voice", "NEED_REPLY", "IS_REPLY"),
-    ("каденза", "каденс", "кейденс"): ("AwACAgIAAxkBAAIJL2mEuYVMHyLkMDHT71bHoQc-aMjfAAIHlwAC7M4gSJx8KZe18qmuOAQ", "voice", "NEED_REPLY", "IS_REPLY")
+    ("делаем грязь", "делай грязь"): ("AwACAgIAAx0Cct4JbwABDO0ZaagvcI4T6JkaqyJyores8XI_hKwAAr2VAAL1AUBJqwm_6OsQcJs6BA", "voice", "IS_REPLY"),
+    ("каденза", "каденс", "кейденс"): ("AwACAgIAAxkBAAIFLmmoSXfYsFhJCcFJDU_WHjLpSl0kAAIHlwAC7M4gSG4XNTul_UcuOgQ", "voice", "NEED_REPLY", "IS_REPLY")
 }
 
 async def main():
