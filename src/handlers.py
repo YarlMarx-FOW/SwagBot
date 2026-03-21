@@ -91,7 +91,7 @@ async def master_talk_mode(message: types.Message):
         target_id = config.CHAT_ID
     else:
         text_to_send = message.text
-        target_id = last_sender_id
+        target_id = state.last_sender_id
 
     if not text_to_send: return
 
