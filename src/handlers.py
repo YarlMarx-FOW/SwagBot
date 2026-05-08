@@ -54,7 +54,7 @@ async def send_to_master_private(message: types.Message):
 ########################################### ОБЩАЖНАЯ СВЯЗЬ (ЧЕРЕЗ ЧАТ) ##############################################################
 @router.message(
     F.chat.type.in_({"group", "supergroup"}), 
-    (F.text.lower().startswith("омега передай")) | (F.caption.lower().startswith("омега передай"))
+    (F.text.lower().startswith("свагабот передай")) | (F.caption.lower().startswith("свагабот передай"))
 )
 async def send_to_master_group(message: types.Message):
     global last_sender_id
