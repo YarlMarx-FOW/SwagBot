@@ -1,0 +1,12 @@
+services:
+  swag-bot:
+    build: .
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - ./data:/app/data # Для БД
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
