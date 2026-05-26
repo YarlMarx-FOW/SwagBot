@@ -1,6 +1,7 @@
 services:
   swag-bot:
     build: .
+    container_name: Omega-v73
     restart: always
     env_file:
       - .env
