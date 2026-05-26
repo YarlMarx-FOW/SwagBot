@@ -153,7 +153,7 @@ async def swag_logic(message: types.Message):
                 return
 
         # Свагификация слов (это ведь основная функция, ведь так?...)
-        if random.random() < 0.01:  # Вероятность его резиста крайне мала
+        if random.random() < 0.005:  # Вероятность его резиста крайне мала
             swag_res = utils.swagify(message.text)
             if swag_res:
                 orig_word, res = swag_res

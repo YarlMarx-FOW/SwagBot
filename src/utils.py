@@ -30,7 +30,7 @@ def pack_triggers(source_dict):
 
         # Парсинг ШАНСА
         chance_tag = next((c for c in cmds if c.startswith("CHANCE:")), None)
-        chance = float(chance_tag.split(":")[1]) if chance_tag else 0.9
+        chance = float(chance_tag.split(":")[1]) if chance_tag else 0.6
 
         # Парсинг TTL (Time To Live)
         delete_tag = next((c for c in cmds if c.startswith("TTL:")), None)
@@ -75,7 +75,7 @@ async def delayed_delete(msg: types.Message, delay: int):
     except Exception:
         pass
 
-########################################### РАБОТА С ЧАТАМИ #########################################################################
+######################################################## РАБОТА С ЧАТАМИ ############################################################
 async def relay_to_master(msg_obj: types.Message, is_private=False):
 
     try:
@@ -90,7 +90,7 @@ async def relay_to_master(msg_obj: types.Message, is_private=False):
     except Exception as e:
         print(f"Абонент нахуй недоступен: {e}")
 
-###################################################### БЛОК СВАГИФИКАЦИИ ############################################################
+######################################################## БЛОК СВАГИФИКАЦИИ ##########################################################
 def swagify(text):                                                                          
 
     words = [w for w in re.findall(r'[а-яёА-ЯЁ]+', text) if len(w) > 3]
@@ -112,5 +112,3 @@ def swagify(text):
             res = f"{res}*"
 
     return orig_word, res
-
-
